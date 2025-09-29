@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Viewport corrigido para responsividade real -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>Projeto Foco</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="https://thumbs.dreamstime.com/b/%C3%ADcone-de-objetivo-foco-desenho-vetor-simples-utiliza%C3%A7%C3%A3o-para-projetos-web-design-meios-comunica%C3%A7%C3%A3o-impressos-ou-quaisquer-252599811.jpg" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot dot-max" title="Foco máximo"></span>
+        <span class="dot dot-mid" title="Foco intermediário"></span>
+        <span class="dot dot-min" title="Foco mínimo"></span>
+        <span class="dot dot-none" title="Sem foco"></span>
+        <h1>
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828178.png" alt="Ícone Projeto" class="title-icon">
+          Projeto Foco
+        </h1>
+      </div>
+
+      <div class="actions">
+        <button id="btnAdd" class="btn primary" title="Adicionar projeto">+ Projeto</button>
+        <button id="btnClear" class="btn subtle" title="Limpar tudo (com confirmação)">Limpar</button>
+        <button id="btnTheme" class="btn ghost" aria-pressed="false" title="Alternar tema">🌙</button>
+      </div>
+    </header>
+
+    <main class="board" id="board">
+      <section class="lane" data-lane="max">
+        <header class="lane-header">
+          <h2>Foco máximo</h2>
+          <span class="badge" data-count="max">0</span>
+        </header>
+        <div class="lane-drop" data-lane="max"></div>
+      </section>
+
+      <section class="lane" data-lane="mid">
+        <header class="lane-header">
+          <h2>Foco intermediário</h2>
+          <span class="badge" data-count="mid">0</span>
+        </header>
+        <div class="lane-drop" data-lane="mid"></div>
+      </section>
+
+      <section class="lane" data-lane="min">
+        <header class="lane-header">
+          <h2>Foco mínimo</h2>
+          <span class="badge" data-count="min">0</span>
+        </header>
+        <div class="lane-drop" data-lane="min"></div>
+      </section>
+
+      <section class="lane" data-lane="none">
+        <header class="lane-header">
+          <h2>Sem foco</h2>
+          <span class="badge" data-count="none">0</span>
+        </header>
+        <div class="lane-drop" data-lane="none"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="projectDialog" class="dialog">
+    <form id="projectForm" method="dialog">
+      <h3 id="dialogTitle">Novo projeto</h3>
+
+      <label class="field">
+        <span>Título</span>
+        <input id="projTitle" type="text" inputmode="text" placeholder="Ex.: Finalizar TCC" required maxlength="80" autocomplete="off">
+      </label>
+
+      <label class="field">
+        <span>Notas (opcional)</span>
+        <textarea id="projNotes" rows="3" placeholder="Detalhes rápidos, próximos passos, etc."></textarea>
+      </label>
+
+      <div class="row">
+        <label class="field grow">
+          <span>Tier inicial</span>
+          <select id="projLane">
+            <option value="max">Foco máximo</option>
+            <option value="mid">Foco intermediário</option>
+            <option value="min">Foco mínimo</option>
+            <option value="none">Sem foco</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Prazo (opcional)</span>
+          <input id="projDue" type="date">
+        </label>
+      </div>
+
+      <menu class="dialog-actions">
+        <button value="cancel" class="btn ghost">Cancelar</button>
+        <button id="btnSaveProject" class="btn primary">Salvar</button>
+      </menu>
+      <input type="hidden" id="projId">
+    </form>
+  </dialog>
+
+  <!-- Template atualizado: inclui seletor 'Mover para...' que aparece no mobile -->
+  <template id="cardTemplate">
+    <article class="card" draggable="true">
+      <div class="card-head">
+        <div class="pill" data-pill></div>
+        <h4 class="title" data-title></h4>
+      </div>
+
+      <p class="notes" data-notes></p>
+
+      <div class="meta">
+        <span class="due" data-due></span>
+
+        <!-- Só visível no mobile/touch -->
+        <label class="lane-picker-wrap">
+          <span class="lane-picker-label">Mover para:</span>
+          <select class="lane-picker" data-lanepick>
+            <option value="max">Foco máximo</option>
+            <option value="mid">Foco intermediário</option>
+            <option value="min">Foco mínimo</option>
+            <option value="none">Sem foco</option>
+          </select>
+        </label>
+
+        <div class="buttons">
+          <button class="icon-btn" data-edit title="Editar" aria-label="Editar">✏️</button>
+          <button class="icon-btn danger" data-delete title="Excluir" aria-label="Excluir">🗑️</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
